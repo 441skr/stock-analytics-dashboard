@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import { 
   Search, TrendingUp, TrendingDown, Activity, 
-  AlertCircle, ChevronRight, BarChart2, Comparison, Layers, Newspaper
+  AlertCircle, ChevronRight, BarChart2, Split as Comparison, Layers, Newspaper
 } from 'lucide-react';
 import { getStockData, getComparison, getScreener, getNews } from './api/stockApi';
 
