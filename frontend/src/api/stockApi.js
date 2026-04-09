@@ -1,25 +1,25 @@
-import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL || 'https://stock-analytics-dashboard-production.up.railway.app';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://stock-analytics-dashboard-production.up.railway.app';
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  timeout: 15000,
-});
-
-export const fetchStockData = async (ticker, period = '3mo') => {
-  const response = await api.get(`/api/stock/${ticker}`, {
-    params: { period },
-  });
-  return response.data;
+export const getStockData = async (ticker) => {
+  const response = await fetch(`${API_URL}/api/stock/${ticker}`);
+  if (!response.ok) throw new Error('Failed to fetch stock data');
+  return response.json();
 };
 
-export const fetchPopularStocks = async () => {
-  const response = await api.get('/api/search');
-  return response.data;
+export const getComparison = async (tickers) => {
+  const response = await fetch(`${API_URL}/api/compare?tickers=${tickers}`);
+  if (!response.ok) throw new Error('Failed to fetch comparison');
+  return response.json();
 };
 
-export const fetchHealth = async () => {
-  const response = await api.get('/api/health');
-  return response.data;
+export const getScreener = async (filter) => {
+  const response = await fetch(`${API_URL}/api/screener?filter=${filter}`);
+  if (!response.ok) throw new Error('Failed to fetch screener');
+  return response.json();
+};
+
+export const getNews = async (ticker) => {
+  const response = await fetch(`${API_URL}/api/news/${ticker}`);
+  if (!response.ok) return [];
+  return response.json();
 };
